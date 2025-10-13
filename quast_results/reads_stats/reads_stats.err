@@ -1,0 +1,17 @@
+[bwa_index] Pack FASTA... 0.04 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 1.73 seconds elapse.
+[bwa_index] Update BWT... 0.04 sec
+[bwa_index] Pack forward-only FASTA... 0.03 sec
+[bwa_index] Construct SA from BWT and Occ... 0.72 sec
+[main] Version: 0.7.18-r1243-dirty
+[main] CMD: /home/Parthiv/miniconda3/envs/bioenv/bin/bwa index -p /home/Parthiv/ERR14842915/quast_results/quast_corrected_input/assembly.fasta /home/Parthiv/ERR14842915/quast_results/quast_corrected_input/assembly.fasta
+[main] Real time: 2.910 sec; CPU: 2.560 sec
+finding positions of the duplicate reads in the file...
+  sorted 1709519 end pairs
+     and 1134 single ends (among them 0 unmatched pairs)
+  collecting indices of duplicate reads...   done in 223 ms
+  found 83032 duplicates
+collected list of positions in 0 min 14 sec
+removing duplicates...
+total time elapsed: 2 min 10 sec

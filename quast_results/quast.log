@@ -1,0 +1,287 @@
+/home/Parthiv/miniconda3/envs/bioenv/bin/quast -o quast_results -g ERR14842915_prokka_results/ERR14842915.gff -t 4 -1 ERR14842915_1_paired.fastq.gz -2 ERR14842915_2_paired.fastq.gz --gene-thresholds 0,1000 /home/Parthiv/ERR14842915_assembly/assembly.fasta --glimmer
+
+Version: 5.3.0
+
+System information:
+  OS: Linux-6.8.0-59-generic-x86_64-with-glibc2.10 (linux_64)
+  Python version: 3.8.19
+  CPUs number: 16
+
+Started: 2025-07-20 21:56:10
+
+Logging to /home/Parthiv/ERR14842915/quast_results/quast.log
+NOTICE: Output directory already exists and looks like a QUAST output dir. Existing results can be reused (e.g. previously generated alignments)!
+
+CWD: /home/Parthiv/ERR14842915
+Main parameters: 
+  MODE: default, threads: 4, min contig length: 500, min alignment length: 65, min alignment IDY: 95.0, \
+  ambiguity: one, min local misassembly length: 200, min extensive misassembly length: 1000
+
+Contigs:
+  Pre-processing...
+  /home/Parthiv/ERR14842915_assembly/assembly.fasta ==> assembly
+
+2025-07-20 21:56:11
+Running Reads analyzer...
+
+NOTICE: Improper read names in /home/Parthiv/ERR14842915/ERR14842915_1_paired.fastq.gz (forward reads)! Names should end with /1 (for forward reads) or /2 (for reverse reads) but @ERR14842915.1 was found!
+QUAST will attempt to fix read names.
+Using existing FASTQ file /home/Parthiv/ERR14842915/quast_results/reads_stats/temp_output/ERR14842915_1_paired.fastq
+
+NOTICE: Improper read names in /home/Parthiv/ERR14842915/ERR14842915_2_paired.fastq.gz (reverse reads)! Names should end with /1 (for forward reads) or /2 (for reverse reads) but @ERR14842915.1 was found!
+QUAST will attempt to fix read names.
+Using existing FASTQ file /home/Parthiv/ERR14842915/quast_results/reads_stats/temp_output/ERR14842915_2_paired.fastq
+  Logging to files /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.log and /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.err...
+  Pre-processing reads...
+  Running BWA...
+/home/Parthiv/miniconda3/envs/bioenv/bin/bwa index -p /home/Parthiv/ERR14842915/quast_results/quast_corrected_input/assembly.fasta \
+/home/Parthiv/ERR14842915/quast_results/quast_corrected_input/assembly.fasta >> /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.err \
+2>> /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.err
+/home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/sambamba/sambamba_linux \
+view -t 2 -h -S -f bam assembly.pe1.sam > assembly.pe1.bam 2>> /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.err
+/home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/sambamba/sambamba_linux \
+markdup -r -t 2 --tmpdir /home/Parthiv/ERR14842915/quast_results/reads_stats assembly.pe1.bam \
+assembly.pe1.dedup.bam 2>> /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_stats.err
+  Done.
+/home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/sambamba/sambamba_linux \
+view -H -S quast_results/reads_stats/temp_output/assembly.sam > quast_results/reads_stats/assembly.sam.header \
+2>> quast_results/reads_stats/reads_stats.err
+  Sorting SAM-file...
+/home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/sambamba/sambamba_linux \
+view -t 2 -h -S -f bam quast_results/reads_stats/temp_output/assembly.all.correct.sam \
+> quast_results/reads_stats/temp_output/assembly.bam 2>> quast_results/reads_stats/reads_stats.err
+/home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/sambamba/sambamba_linux \
+flagstat -t 2 quast_results/reads_stats/temp_output/assembly.bam > quast_results/reads_stats/assembly.stat \
+2>> quast_results/reads_stats/reads_stats.err
+/home/Parthiv/miniconda3/envs/bioenv/bin/bedtools bamtobed -i quast_results/reads_stats/temp_output/assembly.bam \
+> quast_results/reads_stats/temp_output/assembly.bed 2>> quast_results/reads_stats/reads_stats.err
+sort -k1,1 -k2,2n quast_results/reads_stats/temp_output/assembly.bed > quast_results/reads_stats/temp_output/assembly.sorted.bed \
+2>> quast_results/reads_stats/reads_stats.err
+/home/Parthiv/miniconda3/envs/bioenv/bin/bedtools genomecov -i quast_results/reads_stats/temp_output/assembly.sorted.bed \
+-g quast_results/quast_corrected_input/assembly.fasta.fai > quast_results/reads_stats/temp_output/assembly.genomecov \
+2>> quast_results/reads_stats/reads_stats.err
+  Analysis is finished.
+  Creating total report...
+    saved to /home/Parthiv/ERR14842915/quast_results/reads_stats/reads_report.txt, reads_report.tsv, and reads_report.tex
+Done.
+
+2025-07-20 22:01:42
+Running Basic statistics processor...
+  Contig files: 
+    assembly
+  Calculating N50 and L50...
+    assembly, N50 = 697549, L50 = 3, auN = 608569.8, Total length = 4134657, GC % = 43.51, # N's per 100 kbp =  0.00
+  Drawing Nx plot...
+    saved to /home/Parthiv/ERR14842915/quast_results/basic_stats/Nx_plot.pdf
+  Drawing cumulative plot...
+    saved to /home/Parthiv/ERR14842915/quast_results/basic_stats/cumulative_plot.pdf
+  Drawing GC content plot...
+    saved to /home/Parthiv/ERR14842915/quast_results/basic_stats/GC_content_plot.pdf
+  Drawing assembly GC content plot...
+    saved to /home/Parthiv/ERR14842915/quast_results/basic_stats/assembly_GC_content_plot.pdf
+Done.
+
+2025-07-20 22:01:43
+Running GlimmerHMM...
+  assembly
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/0.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/0.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/1.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/1.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/2.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/2.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/3.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/3.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/4.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/4.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/5.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/5.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/6.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/6.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/7.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/7.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/8.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/8.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/9.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/9.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/10.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/10.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/11.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/11.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/12.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/12.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/13.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/13.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/14.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/14.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/15.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/15.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/16.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/16.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/17.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/17.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/18.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/18.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/19.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/19.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/20.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/20.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/21.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/21.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/22.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/22.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/23.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/23.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/24.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/24.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/25.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/25.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/26.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/26.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/27.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/27.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/28.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/28.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/29.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/29.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/30.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/30.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/31.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/31.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/32.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/32.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/33.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/33.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/34.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/34.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/35.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/35.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/36.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/36.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/37.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/37.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/38.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/38.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/39.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/39.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/40.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/40.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/41.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/41.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/42.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/42.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    /home/Parthiv/miniconda3/envs/bioenv/bin/glimmerhmm quast_results/predicted_genes/tmp/tmpgetaaw1a/43.fasta \
+    -d /home/Parthiv/miniconda3/envs/bioenv/lib/python3.8/site-packages/quast_libs/glimmer/trained/arabidopsis \
+    -g -o quast_results/predicted_genes/tmp/tmpgetaaw1a/43.gff >> quast_results/predicted_genes/assembly_glimmer.stderr \
+    2>> quast_results/predicted_genes/assembly_glimmer.stderr
+    Genes = 2795 unique, 2795 total
+    Predicted genes (GFF): /home/Parthiv/ERR14842915/quast_results/predicted_genes/assembly_glimmer_genes.gff
+Done.
+
+2025-07-20 22:01:57
+Creating large visual summaries...
+This may take a while: press Ctrl-C to skip this step..
+  1 of 2: Creating PDF with all tables and plots...
+  2 of 2: Creating Icarus viewers...
+Done
+
+2025-07-20 22:01:58
+RESULTS:
+  Text versions of total report are saved to /home/Parthiv/ERR14842915/quast_results/report.txt, report.tsv, and report.tex
+  Text versions of transposed total report are saved to /home/Parthiv/ERR14842915/quast_results/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version (interactive tables and plots) is saved to /home/Parthiv/ERR14842915/quast_results/report.html
+  PDF version (tables and plots) is saved to /home/Parthiv/ERR14842915/quast_results/report.pdf
+  Icarus (contig browser) is saved to /home/Parthiv/ERR14842915/quast_results/icarus.html
+  Log is saved to /home/Parthiv/ERR14842915/quast_results/quast.log
+
+Finished: 2025-07-20 22:01:58
+Elapsed time: 0:05:47.636771
+NOTICEs: 3; WARNINGs: 0; non-fatal ERRORs: 0
+
+Thank you for using QUAST!
