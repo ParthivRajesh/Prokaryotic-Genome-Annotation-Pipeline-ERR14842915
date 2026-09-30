@@ -2,7 +2,7 @@
 
 ## **Overview**
 
-In this pipeline, I created a non-reproducible but complete genome assembly and annotation of Bacillus Subtilis (ENA ID: ERR14842915). During which I measured its quality scores using QUAST, assembled reads using SPAdes, performed scaffolding with Unicycler, and annotated genes to determine their functional relevance  using PROKKA.
+In this pipeline, I created a non-reproducible but complete genome assembly and annotation of Bacillus Subtilis (ENA ID: ERR14842915). During which I measured its quality scores using QUAST, assembled reads using SPAdes, performed scaffolding with Unicycler, and annotated genes to determine their functional relevance  using PROKKA. This pipeline is currently in use at the Bruhaspathi Institute of Bioscience as they adopted this pipeline
 
 ## **Methodology**
 
